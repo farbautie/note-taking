@@ -45,7 +45,14 @@ Coming soon...
 
 ### Built with
 
-Coming soon...
+- **React** - Library for building user interfaces
+- **TypeScript** - For type safety and better development experience
+- **Panda CSS** - For styling the application
+- **Vite** - As the build tool for fast and efficient development
+- **React Router** - For managing routes and navigation
+- **ESLint & Prettier** - For code quality and formatting
+- **Frontend Mentor Starter Template** - As the base for the project
+- **Custom SVG Icons** - For interactive UI elements
 
 ### What I learned
 
