@@ -1,22 +1,29 @@
-import Button from "./components/ui/Button";
+import Input from './components/ui/Input';
 
 export default function App() {
   return (
     <div>
-      <Button variant="primary">Primary Button</Button>
-      <Button variant="primary" isDisabled>
-        Primary Button (Disabled)
-      </Button>
+      {/* Default Input */}
+      <Input label="Default Label" placeholder="Placeholder text" hint="This is a hint text to help user." />
 
-      <Button variant="secondary">Secondary Button</Button>
-      <Button variant="secondary" isDisabled>
-        Secondary Button (Disabled)
-      </Button>
+      {/* Disabled Input */}
+      <Input
+        label="Disabled Label"
+        placeholder="Placeholder text"
+        hint="This is a hint text to help user."
+        isDisabled
+      />
 
-      <Button variant="border">Border Button</Button>
-      <Button variant="border" isDisabled>
-        Border Button (Disabled)
-      </Button>
+      {/* Input with Focus */}
+      <Input
+        label="Focus Label"
+        type="password"
+        placeholder="Placeholder text"
+        hint="This is a hint text to help user."
+      />
+
+      {/* Input with Error */}
+      <Input label="Error Label" placeholder="Placeholder text" hint="This is a hint text to help user." hasError />
     </div>
   );
 }
