@@ -1,13 +1,22 @@
-import { css } from '../styled-system/css'
+import Button from "./components/ui/Button";
 
 export default function App() {
   return (
-    <div className={css({ display: 'flex', flexDirection: 'column' })}>
-      <h1>Hello Vite!</h1>
-      <div className={css({ display: 'flex', gap: 10 })}>
-        <button>Button 1</button>
-        <button>Button 2</button>
-      </div>
+    <div>
+      <Button variant="primary">Primary Button</Button>
+      <Button variant="primary" isDisabled>
+        Primary Button (Disabled)
+      </Button>
+
+      <Button variant="secondary">Secondary Button</Button>
+      <Button variant="secondary" isDisabled>
+        Secondary Button (Disabled)
+      </Button>
+
+      <Button variant="border">Border Button</Button>
+      <Button variant="border" isDisabled>
+        Border Button (Disabled)
+      </Button>
     </div>
-  )
+  );
 }
