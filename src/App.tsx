@@ -1,76 +1,60 @@
 import { useState } from 'react';
-import { css } from '../styled-system/css';
-import Modal from './components/ui/Modal';
+import CheckIcon from './assets/images/icon-checkmark.svg';
+import Toast from './components/ui/Toast';
+type ToastVariant = 'success' | 'info' | 'warning' | 'error';
 
-import TrashIcon from './assets/images/icon-delete.svg';
-import ArchiveIcon from './assets/images/icon-archive.svg';
-
+interface ToastItem {
+  id: number;
+  message: string;
+  variant: ToastVariant;
+  actionLabel?: string;
+  onActionClick?: () => void;
+}
 export default function App() {
-  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [isArchiveModalOpen, setArchiveModalOpen] = useState(false);
+  const [toasts, setToasts] = useState<ToastItem[]>([
+    {
+      id: 1,
+      message: 'Note saved successfully!',
+      variant: 'success',
+      actionLabel: 'View Note',
+      onActionClick: () => alert('Viewing note'),
+    },
+    {
+      id: 2,
+      message: 'Note archived.',
+      variant: 'info',
+      actionLabel: 'Archived Notes',
+      onActionClick: () => alert('Go to archived notes'),
+    },
+    {
+      id: 3,
+      message: 'Note permanently deleted.',
+      variant: 'warning',
+    },
+    {
+      id: 4,
+      message: 'An error occurred.',
+      variant: 'error',
+    },
+  ]);
+
+  const handleRemoveToast = (id: number) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+  };
 
   return (
-    <div className={css({ padding: '24px' })}>
-      <button
-        className={css({ padding: '8px 16px', bg: 'red.500', color: 'white', borderRadius: '8px' })}
-        onClick={() => setDeleteModalOpen(true)}
-      >
-        Open Delete Modal
-      </button>
-      <button
-        className={css({
-          padding: '8px 16px',
-          bg: 'blue.500',
-          color: 'white',
-          borderRadius: '8px',
-          marginLeft: '16px',
-        })}
-        onClick={() => setArchiveModalOpen(true)}
-      >
-        Open Archive Modal
-      </button>
-
-      {isDeleteModalOpen && (
-        <Modal
-          title="Delete Note"
-          description="Are you sure you want to permanently delete this note? This action cannot be undone."
-          icon={TrashIcon}
-          primaryAction={{
-            label: 'Delete Note',
-            onClick: () => {
-              alert('Note deleted!');
-              setDeleteModalOpen(false);
-            },
-            variant: 'danger',
-          }}
-          secondaryAction={{
-            label: 'Cancel',
-            onClick: () => setDeleteModalOpen(false),
-          }}
-          onClose={() => setDeleteModalOpen(false)}
+    <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      {toasts.map((toast) => (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          variant={toast.variant}
+          actionLabel={toast.actionLabel}
+          onActionClick={toast.onActionClick}
+          onClose={() => handleRemoveToast(toast.id)}
+          icon={CheckIcon}
         />
-      )}
-
-      {isArchiveModalOpen && (
-        <Modal
-          title="Archive Note"
-          description="Are you sure you want to archive this note? You can find it in the Archived Notes section and restore it anytime."
-          icon={ArchiveIcon}
-          primaryAction={{
-            label: 'Archive Note',
-            onClick: () => {
-              alert('Note archived!');
-              setArchiveModalOpen(false);
-            },
-            variant: 'primary',
-          }}
-          secondaryAction={{
-            label: 'Cancel',
-            onClick: () => setArchiveModalOpen(false),
-          }}
-          onClose={() => setArchiveModalOpen(false)}
-        />
-      )}
+      ))}
     </div>
   );
 }
